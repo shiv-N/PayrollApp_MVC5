@@ -1,0 +1,83 @@
+﻿@model IEnumerable<EmployeePayrollApp.Models.EmployeeDetails>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfileImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Department)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Salary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProfileImage)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Gender)
+    </td>
+
+    <td>
+        @if (item.Department.IsHR)
+        {@Html.LabelFor(modelItem => item.Department.IsHR)}
+
+        @if (item.Department.IsSales)
+        {@Html.LabelFor(modelItem => item.Department.IsSales)}
+
+        @if (item.Department.IsFinance)
+        {@Html.LabelFor(modelItem => item.Department.IsFinance)}
+
+        @if (item.Department.IsEngineer)
+        {@Html.LabelFor(modelItem => item.Department.IsEngineer)}
+
+        @if (item.Department.IsOthers)
+        {@Html.LabelFor(modelItem => item.Department.IsOthers)}
+
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Salary)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.StartDate)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+    </td>
+</tr>
+}
+
+</table>

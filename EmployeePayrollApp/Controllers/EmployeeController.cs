@@ -1,4 +1,5 @@
-﻿using EmployeePayrollApp.Models;
+﻿using BusinessManager.Interfaces;
+using EmployeePayrollApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,12 @@ namespace EmployeePayrollApp.Controllers
 {
     public class EmployeeController : Controller
     {
-       
+        private IEmployeeBL employeeBL;
+        public EmployeeController(IEmployeeBL employeeBL)
+        {
+            this.employeeBL = employeeBL;
+        }
+
         // GET: Employee
         public ActionResult Form()
         {
@@ -19,7 +25,22 @@ namespace EmployeePayrollApp.Controllers
         [HttpPost]
         public ActionResult Form(EmployeeDetails employee)
         {
-            return RedirectToAction("EmployeeDetail", employee);
+            try
+            {
+                bool result = this.employeeBL.RegisterEmployee(employee);
+                if(result == true)
+                {
+                    return RedirectToAction("EmployeeDetail", employee);
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public ActionResult Details()
